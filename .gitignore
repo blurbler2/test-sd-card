@@ -1,0 +1,16 @@
+build
+.vscode
+.cache
+dist
+node_modules
+*.log
+*.env
+.DS_Store
+.idea
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.tsbuildinfo   

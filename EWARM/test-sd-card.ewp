@@ -1188,6 +1188,12 @@
         <name>$PROJ_DIR$/../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_exti.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$/../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$/../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_spi_ex.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$/../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_usart.c</name>
       </file>
       <file>
