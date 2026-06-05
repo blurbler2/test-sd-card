@@ -3,7 +3,7 @@
 Writes "Hello World!" to an SD card using FatFs over SPI.
 
 ## Wiring
-
+```
 | SD Card | NUCLEO-WB55RG |
 |---------|---------------|
 | CLK     | PA5 (D13)     |
@@ -12,7 +12,7 @@ Writes "Hello World!" to an SD card using FatFs over SPI.
 | CS      | PA4 (D10)     |
 | VCC     | 3V3           |
 | GND     | GND           |
-
+```
 DET is unwired.
 
 ## Build
@@ -63,3 +63,10 @@ openocd -f interface/stlink.cfg -f target/stm32wbx.cfg \
 - [STM32 Adafruit SD Shield driver](https://github.com/STMicroelectronics/STM32CubeF0/blob/master/Drivers/BSP/Adafruit_Shield/stm32_adafruit_sd.c)
 - [FatFs sample by kiwih](https://github.com/kiwih/cubeide-sd-card/tree/master)
 - [Tutorial video](https://www.youtube.com/watch?v=PBIm8BCnbyQ)
+
+## Hardware used
+- ADA4682 Adafruit Micro SD SPI oder SDIO Karten Breakout Board - 3V
+- Nucleo Board STM32WB55RG: MB1355D
+## Demo
+
+<img src="docs/working-demo.jpeg" alt="Working demo" width="50%">
