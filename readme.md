@@ -1,47 +1,65 @@
-# Testing Adafruit Mikro SD Card with SPI for Nucleo STM32WB55RG Board
+# SD Card via SPI — NUCLEO-WB55RG
 
-https://github.com/STMicroelectronics/STM32CubeF0/blob/master/Drivers/BSP/Adafruit_Shield/stm32_adafruit_sd.c
+Writes "Hello World!" to an SD card using FatFs over SPI.
 
-tutorial video: https://www.youtube.com/watch?v=PBIm8BCnbyQ
-using this for fatfs: https://github.com/kiwih/cubeide-sd-card/tree/master
+## Wiring
 
-# setup build 
-configure cmake to create build directory:
-`cmake --preset Debug`
+| SD Card | NUCLEO-WB55RG |
+|---------|---------------|
+| CLK     | PA5 (D13)     |
+| MOSI    | PA7 (D11)     |
+| MISO    | PA6 (D12)     |
+| CS      | PA4 (D10)     |
+| VCC     | 3V3           |
+| GND     | GND           |
 
-then build:
-`cmake --build --preset Debug`
+DET is unwired.
 
-## Build and flash
-using st flash or openocd:
+## Build
+
+```bash
+cmake --preset Debug
+cmake --build --preset Debug
+```
+
+Output: `build/Debug/test-sd-card.bin`
+
+## Flash
 
 ```bash
 st-flash --reset write build/Debug/test-sd-card.bin 0x08000000
 ```
 
+or
+
 ```bash
-openocd -f interface/stlink.cfg -f target/stm32wbx.cfg -c "program build/Debug/test-sd-card.elf verify reset exit"
+openocd -f interface/stlink.cfg -f target/stm32wbx.cfg \
+  -c "program build/Debug/test-sd-card.elf verify reset exit"
 ```
 
-## MX Setup
-Enable RCC in System Core (Pinout & Configuration)
-Set HSE in (Clock Config), sysclock 64 MHz
-Enable SPI, 8 bits and PRESCALE (for baud rate) to highest, 256
-Move CLK to PA5 with control click
+## Indication
 
-Pins:
-Chipselect: PA4 as GPIO_Output, Output level `HIGH` (name it SP1_CS), GPIO PULLUp/PUlldown: `Pull up`
+- **Green LED** blinks 5× then stays on → write successful
+- **Red LED** blinks 5× then stays on → write failed
 
-System Core > SYS > Debug: Serial Wire
-## Wiring
+## CubeMX Setup
 
-Adafruit SD card -----> Nucleo wb55
-__________________________
-CLK -----> PA5 (D13)
-MOSI -----> PA7 (D11)
-MISO -----> PA6 (D12)
-CS -------> PA4 (D10)
-VCC -------> 3V3
-GND --------> GND
+**System Core (Pinout & Configuration)**
+- RCC → enable HSE
+- SYS → Debug → Serial Wire
 
-the rest is unwired
+**Clock Config**
+- HSE, sysclock 64 MHz
+
+**SPI**
+- Enable SPI, 8 bit, prescaler 256 (highest baud rate divider)
+- Move CLK to PA5 (Ctrl+Click)
+
+**Pins**
+- PA4 (renamed: `SPI1_CS` → GPIO_Output, Output level: High,  ), Pull-up
+
+## References
+
+- [STM32 Adafruit SD Shield driver](https://github.com/STMicroelectronics/STM32CubeF0/blob/master/Drivers/BSP/Adafruit_Shield/stm32_adafruit_sd.c)
+- [FatFs sample by kiwih](https://github.com/kiwih/cubeide-sd-card/tree/master)
+- [Tutorial video](https://www.youtube.com/watch?v=PBIm8BCnbyQ)
